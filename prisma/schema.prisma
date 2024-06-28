@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id            Int       @id @default(autoincrement())
+  createdAt     DateTime  @default(now()) @db.Timestamp(3)
+  updatedAt     DateTime  @default(now()) @updatedAt @db.Timestamp(3)
+  username      String    @db.VarChar(255)
+  role          String    @default("student")
+  grade         Int       @default(1)
+  points        Int       @default(10)
+  email         String    @unique @db.VarChar(255)
+  password_hash String    @db.VarChar(255)
+  deletedAt     DateTime? @db.Timestamp(3)
+}
+
+model Todo {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+  title     String
+  is_done   Boolean   @default(false)
+  deletedAt DateTime?
+}
