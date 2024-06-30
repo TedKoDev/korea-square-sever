@@ -36,6 +36,9 @@ npx prisma init
 테이블 1개 만들고
 npx prisma db pull
 
+npm install @prisma/client
+npx prisma generate
+
 model 생성 후 추가
 
 npx prisma migrate dev
@@ -62,3 +65,8 @@ npm install --save @nestjs/swagger
 ## bcrypt
 
 npm install -D @types/bcrypt
+
+## jwt
+
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+npm install --save-dev @types/passport-jwt

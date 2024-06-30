@@ -21,7 +21,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe()); // 추가
   app.useGlobalInterceptors(new LoggingInterceptor()); // 추가
-
+  app.enableCors(); // CORS 설정
   await app.listen(4000);
 }
 bootstrap();
