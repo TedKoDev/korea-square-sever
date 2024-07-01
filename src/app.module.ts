@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TodosModule } from './todos/todos.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { PostModule } from './modules/post/post.module';
 
 @Module({
-  imports: [TodosModule, AuthModule],
+  imports: [TodosModule, AuthModule, PostModule],
   controllers: [AppController],
   providers: [AppService],
 })

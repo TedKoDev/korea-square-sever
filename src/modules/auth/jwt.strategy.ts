@@ -8,7 +8,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: 'yourSecretKey', // 여기에 당신의 비밀 키를 사용하세요
+      secretOrKey: 'ks', // 여기에 당신의 비밀 키를 사용하세요
     });
   }
 

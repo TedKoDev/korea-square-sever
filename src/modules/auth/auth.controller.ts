@@ -16,14 +16,12 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto'; // SignInDto 임포트
 
-@Controller('auth')
+@Controller('v1/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
   async signup(@Body(new ValidationPipe()) signUpDto: SignUpDto) {
-    console.log('signupDto', signUpDto);
-    // 기존에 email이 있는지 확인하고 있으면 에러를 던지고 없으면 회원가입을 진행합니다.
     const user = await this.authService.findByEmail(signUpDto.email);
     if (user) {
       return {
