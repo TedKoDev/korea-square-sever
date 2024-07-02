@@ -70,3 +70,9 @@ npm install -D @types/bcrypt
 
 npm install @nestjs/jwt @nestjs/passport passport passport-jwt
 npm install --save-dev @types/passport-jwt
+
+## s3
+
+npm install aws-sdk
+npm install @nestjs/config
+npm install @aws-sdk/s3-request-presigner

@@ -22,17 +22,35 @@ model user {
 }
 
 model post {
-  id        Int       @id @default(autoincrement())
-  category  String    @db.VarChar(255)
-  title     String    @db.VarChar(255)
-  point     Int?      @default(0)
-  password  String?   @db.VarChar(255)
-  content   String
-  user      user      @relation(fields: [userId], references: [id])
-  userId    Int
+  id       Int     @id @default(autoincrement())
+  category String  @db.VarChar(255)
+  title    String  @db.VarChar(255)
+  point    Int?    @default(0)
+  password String? @db.VarChar(255)
+  content  String
+  user     user    @relation(fields: [userId], references: [id])
+  userId   Int
+
+  files File[] // 파일과의 관계 설정
+
   createdAt DateTime  @default(now()) @db.Timestamp(3)
   updatedAt DateTime  @default(now()) @updatedAt @db.Timestamp(3)
   deletedAt DateTime? @db.Timestamp(3)
+}
+
+model File {
+  id     Int    @id @default(autoincrement())
+  url    String
+  postId Int
+  post   post   @relation(fields: [postId], references: [id])
+}
+
+model CategoryType {
+  CategoryID   Int      @id @default(autoincrement())
+  CategoryName String
+  Description  String?
+  CreatedAt    DateTime @default(now())
+  UpdatedAt    DateTime @updatedAt
 }
 
 model Todo {

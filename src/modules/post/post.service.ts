@@ -4,7 +4,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 
-import { CreatePostDto } from './dto/create-post.dto';
+import { CreatePostWithUserIdDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { DeletePostDto } from './dto/delete-post.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -13,18 +13,33 @@ import { PrismaService } from 'src/prisma.service';
 export class PostService {
   constructor(private prisma: PrismaService) {}
 
-  async createPost(createPostDto: CreatePostDto) {
+  async createPost(createPostDto: CreatePostWithUserIdDto) {
     if (!createPostDto.title) {
       throw new BadRequestException('Title is required');
     }
-    return await this.prisma.post.create({
-      data: createPostDto,
+
+    const { files, ...postData } = createPostDto;
+
+    const post = await this.prisma.post.create({
+      data: postData,
     });
+
+    if (files && files.length > 0) {
+      await this.prisma.file.createMany({
+        data: files.map((url) => ({
+          url,
+          postId: post.id,
+        })),
+      });
+    }
+
+    return post;
   }
 
   async getPost(id: number) {
     const post = await this.prisma.post.findUnique({
       where: { id },
+      include: { files: true }, // 파일 정보를 포함
     });
 
     if (!post) {

@@ -27,7 +27,9 @@ export class PostController {
     @Body(new ValidationPipe()) createPostDto: CreatePostDto,
     @Req() req,
   ) {
-    console.log('req', req); // 전체 req 객체 로그
+    console.log('createPostDto', createPostDto);
+
+    // console.log('req', req); // 전체 req 객체 로그
     const userId = req.user?.id; // 토큰에서 추출된 userId
     if (!userId) {
       throw new NotFoundException('User not found');
@@ -36,7 +38,7 @@ export class PostController {
       ...createPostDto,
       userId,
     });
-    console.log('createdPost', createdPost);
+    // console.log('createdPost', createdPost);
     return {
       message: 'Post created successfully',
       statusCode: HttpStatus.CREATED,
